@@ -51,8 +51,6 @@
             });
 
             const distanceContainer = document.getElementById('distance');
-            // const agus = 0;
-            // GeoJSON object to hold our measurement features
             const geojson = {
                 'type': 'FeatureCollection',
                 'features': []
