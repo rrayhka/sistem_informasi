@@ -1,21 +1,29 @@
-
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
         <form method="post">
-            <label for="intelektual">Masukkan Intelektual</label>
-            <input type="text" name="intelektual"><br>
-            <label for="sikap">Masukkan Sikap</label>
-            <input type="text" name="sikap"><br>
-            <button type="submit" name="submit">Submit</button>
+            <div class="form-group">
+                <label for="intelektual">Masukkan Intelektual</label>
+                <input type="text" name="intelektual" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="sikap">Masukkan Sikap</label>
+                <input type="text" name="sikap" class="form-control">
+            </div>
+            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
         </form>
-    </body>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>
+
 
 <?php
     function buruk($x, $a, $b){
@@ -50,6 +58,20 @@
         }
     }
 
+    function teladanBaik($a, $b, $z){
+        return (($b - $a) * $z) + $a;
+    }
+
+    function teladanBuruk($a, $b, $z){
+        return abs((($b - $a) * $z) - $b);
+    }
+
+    function teladanSedang($a, $b, $c, $z){
+        $kiri = (($b - $a) * $z) + $a;
+        $kanan = abs((($c - $b) * $z) - $c);
+        return min($kiri, $kanan);
+    }
+
     if(isset($_POST['submit'])){
         $intelektual = $_POST['intelektual'];
         $sikap = $_POST['sikap'];
@@ -79,6 +101,8 @@
         echo "menemukan nilai sikap : <br>";
         var_dump($arrSikap);
         echo "<br>";
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // mencari aturan-aturan fuzzy
@@ -145,7 +169,24 @@
         echo "Menemukan aturan fuzzy untuk variabel intelektual dan sikap: <br>";
         var_dump($arrTeladans);
         
+        $a_predicates = [];
+        // mencari a-predicate i 
+        for($i = 0; $i < $jumlah_intelektual; $i++){
+            for($j = 0; $j < $jumlah_sikap; $j++){
+                $a_predicate_i = min($nonZeroValuesIntelektual[$i], $nonZeroValuesSikap[$j]);
 
+                $a_predicates[] = $a_predicate_i;
+            }
+        }
+        // var_dump($a_predicates);
+        // foreach($a_predicates as $key){
+            //     echo "teladan buruk : " . $teladan_buruk . "<br>";
+            // }
+            
+        $teladan_baik = teladanBaik(30, 35, 0.5);
+        echo "teladan baik : " . $teladan_baik . "<br>";
+        $teladan_buruk = teladanBuruk(15, 25, 0.7);
+        echo "teladanBuruk : " . $teladan_buruk . "<br>";
 
 
 
