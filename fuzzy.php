@@ -173,7 +173,7 @@
         // mencari a-predicate i 
         for($i = 0; $i < $jumlah_intelektual; $i++){
             for($j = 0; $j < $jumlah_sikap; $j++){
-                $a_predicate_i = min($nonZeroValuesIntelektual[$i], $nonZeroValuesSikap[$j]);
+                $a_predicate_i = round(min($nonZeroValuesIntelektual[$i], $nonZeroValuesSikap[$j]), 3);
 
                 $a_predicates[] = $a_predicate_i;
             }
@@ -186,11 +186,11 @@
         // mencari z-predicate i
         foreach($arrTeladans as $key => $value){
             if($value == "buruk"){
-                $z_predicates[] = teladanBuruk(15, 25, $a_predicates[$key]);
+                $z_predicates[] = round(teladanBuruk(15, 25, $a_predicates[$key]), 3);
             } else if($value == "sedang"){
-                $z_predicates[] = teladanSedang(20, 25, 30, $a_predicates[$key]);
+                $z_predicates[] = round(teladanSedang(20, 25, 30, $a_predicates[$key]), 3);
             } else if($value == "baik"){
-                $z_predicates[] = teladanBaik(25, 35, $a_predicates[$key]);
+                $z_predicates[] = round(teladanBaik(25, 35, $a_predicates[$key]), 3);
             }
         }
 
@@ -204,7 +204,22 @@
             $penyebut += $a_predicates[$index];
             $index++;
         }
-        $result = $pembilang / $penyebut;
+        $weightAvarage = round(($pembilang / $penyebut), 2);
         echo "Hasil perhitungan: <br>";
-        echo $result;
+        echo $weightAvarage;
+        if(isset($weightAvarage)){
+            $kategori = [
+                "buruk" => buruk($weightAvarage, 15, 25),
+                "sedang" => sedang($weightAvarage, 20, 25, 30),
+                "baik" => bagus($weightAvarage, 30, 35),
+            ];
+            var_dump($kategori);
+            $max = array_keys($kategori, max($kategori))[0];
+            echo "<br>";
+            echo "Hasil klasifikasi: <br>";
+            echo $max;
+        }
+
+
+
     }
