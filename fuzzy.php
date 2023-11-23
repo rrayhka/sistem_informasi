@@ -104,7 +104,7 @@
 
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         // mencari aturan-aturan fuzzy
         $nonZeroKeysIntelektual = array_keys(array_filter($arrIntelektual, function($value) {
             return $value !== 0;
@@ -178,50 +178,33 @@
                 $a_predicates[] = $a_predicate_i;
             }
         }
-        // var_dump($a_predicates);
-        // foreach($a_predicates as $key){
-            //     echo "teladan buruk : " . $teladan_buruk . "<br>";
-            // }
-            
-        $teladan_baik = teladanBaik(30, 35, 0.5);
-        echo "teladan baik : " . $teladan_baik . "<br>";
-        $teladan_buruk = teladanBuruk(15, 25, 0.7);
-        echo "teladanBuruk : " . $teladan_buruk . "<br>";
+        
+        echo "Menemukan a-predicate i dengan nilai terendah: <br>";
+        var_dump($a_predicates);
 
+        $z_predicates = [];
+        // mencari z-predicate i
+        foreach($arrTeladans as $key => $value){
+            if($value == "buruk"){
+                $z_predicates[] = teladanBuruk(15, 25, $a_predicates[$key]);
+            } else if($value == "sedang"){
+                $z_predicates[] = teladanSedang(20, 25, 30, $a_predicates[$key]);
+            } else if($value == "baik"){
+                $z_predicates[] = teladanBaik(25, 35, $a_predicates[$key]);
+            }
+        }
 
+        var_dump($z_predicates);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // mencari nilai tertinggi dari nilai intelektual
-        $maxValueIntelektual = max($arrIntelektual); 
-        $keysMaxIntelektual = array_keys($arrIntelektual, $maxValueIntelektual);
-        // memformat angka tertinggi menjadi 1 angka dibelakang koma
-        $numberFormatted = number_format($maxValueIntelektual, 1);
-
-        // mencari nilai tertinggi dari nilai sikap
-        $maxValueSikap = max($arrSikap); 
-        $keysMaxSikap = array_keys($arrSikap, $maxValueSikap);
-        // memformat angka tertinggi menjadi 1 angka dibelakang koma
-        $numberFormatted = number_format($maxValueSikap, 1);
-
-        // aturan fuzzy
-        // for($i = 1; $i <= 9; $i++){
-        //     if()
-        // }
+        $pembilang = 0;
+        $penyebut = 0;
+        $index = 0;
+        while ($index <= count($a_predicates)-1) {
+            $pembilang += $a_predicates[$index] * $z_predicates[$index];
+            $penyebut += $a_predicates[$index];
+            $index++;
+        }
+        $result = $pembilang / $penyebut;
+        echo "Hasil perhitungan: <br>";
+        echo $result;
     }
