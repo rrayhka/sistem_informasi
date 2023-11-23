@@ -187,7 +187,7 @@
             }
         }
         
-        echo "Menemukan a-predicate i dengan nilai terendah: <br>";
+        echo "Menemukan a-predicate i keseluruhan: <br>";
         var_dump($a_predicates);
 
         $z_predicates = [];
