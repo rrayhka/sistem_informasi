@@ -3,24 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
-        <form method="post">
-            <div class="form-group">
-                <label for="intelektual">Masukkan Intelektual</label>
-                <input type="text" name="intelektual" class="form-control">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Login</div>
+                    <div class="card-body">
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="username">Intelektual</label>
+                                <input type="text" class="form-control" name="intelektual" id="intelektual" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Sikap Siswa</label>
+                                <input type="text" class="form-control" name="sikap" id="sikap" required>
+                            </div>
+                            <button type="submit" name="submit" class="btn btn-primary">Hitung</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="sikap">Masukkan Sikap</label>
-                <input type="text" name="sikap" class="form-control">
-            </div>
-            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-        </form>
+        </div>
     </div>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 
