@@ -196,6 +196,7 @@
 
         var_dump($z_predicates);
 
+        // rumus akhir untuk weight avarage
         $pembilang = 0;
         $penyebut = 0;
         $index = 0;
