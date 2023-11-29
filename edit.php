@@ -15,12 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nisn = $_POST['nisn'];
     $nama = $_POST['nama'];
     $intelektual = $_POST['intelektual'];
+    $sistem_lama = $_POST['sistem_lama'];
     $sikap = $_POST['sikap'];
     $user = mysqli_query($conn, "SELECT * FROM siswa WHERE nisn = '$nisn'");
     $data = mysqli_fetch_assoc($user);
 
     // Update the student information in the database
-    $update_query = "UPDATE siswa SET nama='$nama', intelektual='$intelektual', sikap='$sikap' WHERE nisn='$nisn'";
+    $update_query = "UPDATE siswa SET nama='$nama', intelektual='$intelektual', sikap='$sikap', sistem_lama = '$sistem_lama' WHERE nisn='$nisn'";
     $result = mysqli_query($conn, $update_query);
 
     if ($result) {
@@ -73,6 +74,10 @@ if (isset($_GET['nisn'])) {
                     <div class="mb-3">
                         <label for="sikap" class="form-label">Sikap:</label>
                         <input type="text" class="form-control" id="sikap" name="sikap" value="<?= $student['sikap'] ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="sistem_lama" class="form-label">Sistem Lama</label>
+                        <input type="text" class="form-control" id="sistem_lama" name="sistem_lama" value="<?= $student['sistem_lama'] ?>">
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
