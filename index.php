@@ -197,7 +197,7 @@
                             $benar = mysqli_num_rows(mysqli_query($conn, "SELECT akurasi FROM siswa where akurasi > 95"));
                             $akurasi = ($benar / $count) * 100;
                         ?>
-                        Tingkat Akurasi Fuzzy Logic: <?= $akurasi ?>
+                        Tingkat Akurasi Fuzzy Logic: <?= $akurasi ?>%
                         </td>
                     </tr>
                 </tbody>
