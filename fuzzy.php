@@ -83,6 +83,7 @@
     if(isset($_POST['submit'])){
         $intelektual = $_POST['intelektual'];
         $sikap = $_POST['sikap'];
+        var_dump($intelektual, $sikap);
         
         // mencari nilai untuk variable intelektual
         $intelektual_buruk = buruk($intelektual, 15, 30);

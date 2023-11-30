@@ -175,7 +175,17 @@
                                         </td>
                                     </tr>
                                     <?php $no++ ?>
-                                <?php endforeach; ?>
+                                    <?php endforeach; ?>
+                                    <tr>
+                                        <td colspan="9">
+                                            <?php 
+                                                $count = mysqli_num_rows(mysqli_query($conn, "SELECT akurasi FROM siswa"));
+                                                $benar = mysqli_num_rows(mysqli_query($conn, "SELECT akurasi FROM siswa where akurasi > 95"));
+                                                $akurasi = ($benar / $count) * 100;
+                                            ?>
+                                            Tingkat Akurasi : <?= $akurasi ?>
+                                        </td>
+                                    </tr>
                             </tbody>
                         </table>
                         <nav aria-label="Page navigation example">
