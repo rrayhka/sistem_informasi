@@ -181,8 +181,10 @@
         $query = "UPDATE siswa SET fuzzy_baru = '$weightAvarage' WHERE nisn = '$nisn'";
         $result1 = mysqli_query($conn, $query);
         if($result1){
+            $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT fuzzy_baru, sistem_lama FROM siswa WHERE nisn = '$nisn'"));
             $akurasi = round(($data["fuzzy_baru"] / $data["sistem_lama"] * 100), 2);
             $query1 = "UPDATE siswa SET akurasi = '$akurasi' WHERE nisn = '$nisn'";
+            
         }
         echo "Hasil perhitungan: <br>";
         echo $weightAvarage;
@@ -199,5 +201,7 @@
             echo $max;
         }
         return mysqli_query($conn, $query1);
+
+        
     }
 ?>

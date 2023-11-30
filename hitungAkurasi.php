@@ -1,12 +1,6 @@
 <?php
-
     require "koneksi.php";
-    if(isset($_GET["nisn"])){
-        $nisn = $_GET["nisn"];
-    } else{
-        $nisn = "";
-    }
-
+    $nisn = $_GET["nisn"];
     $sql = "SELECT * FROM siswa WHERE nisn = '$nisn'";
     $query = mysqli_query($conn, $sql);
     $data = mysqli_fetch_array($query);

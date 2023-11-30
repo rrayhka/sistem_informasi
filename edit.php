@@ -20,7 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = mysqli_query($conn, "SELECT * FROM siswa WHERE nisn = '$nisn'");
     $data = mysqli_fetch_assoc($user);
 
-    // Update the student information in the database
     $update_query = "UPDATE siswa SET nama='$nama', intelektual='$intelektual', sikap='$sikap', sistem_lama = '$sistem_lama' WHERE nisn='$nisn'";
     $result = mysqli_query($conn, $update_query);
 
@@ -28,8 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $perubahan = main($intelektual, $sikap, $nisn);
         if($perubahan == true){
             echo "Update successful!";
+            header("Location: index.php");
         }
-        header("Location: index.php");
         exit();
     } else {
         echo "Update failed!";
@@ -42,7 +41,6 @@ if (isset($_GET['nisn'])) {
     $result = mysqli_query($conn, $query);
     $student = mysqli_fetch_assoc($result);
 } else {
-    // Handle invalid or missing nisn parameter
     echo "Invalid student ID!";
     exit();
 }
