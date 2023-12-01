@@ -13,8 +13,11 @@
 
         if (mysqli_query($conn, $sql)) {
             $perubahan = main($intelektual, $sikap, $nisn);
-            header("Location: index.php");
-            exit();
+            if($perubahan == true){
+                echo "New record created successfully";
+                header("Location: index.php");
+            }
+            e5xit();
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }

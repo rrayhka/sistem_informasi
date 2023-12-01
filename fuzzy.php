@@ -66,17 +66,24 @@
         }
     }
 
-    function teladanBaik($a, $b, $z){
-        return (($b - $a) * $z) + $a;
+    function teladanBaik($Z){
+        $a = 25;
+        $b = 35;
+        return $Z * ($b - $a) + $a;
     }
 
-    function teladanBuruk($a, $b, $z){
-        return abs((($b - $a) * $z) - $b);
+    function teladanBuruk($Z){
+        $a = 15; 
+        $b = 25;
+        return $b * (1 - $Z) + $Z * $a;
     }
 
-    function teladanSedang($a, $b, $c, $z){
-        $kiri = (($b - $a) * $z) + $a;
-        $kanan = abs((($c - $b) * $z) - $c);
+    function teladanSedang($Z){
+        $a = 20;
+        $b = 25; 
+        $c = 30;
+        $kiri = $Z * ($b - $a) + $a;
+        $kanan = $c - (($c - $b) * $Z);
         return min($kiri, $kanan);
     }
 
@@ -182,6 +189,7 @@
         // mencari a-predicate i 
         for($i = 0; $i < $jumlah_intelektual; $i++){
             for($j = 0; $j < $jumlah_sikap; $j++){
+                var_dump($nonZeroValuesIntelektual[$i], $nonZeroValuesSikap[$j]);
                 $a_predicate_i = round(min($nonZeroValuesIntelektual[$i], $nonZeroValuesSikap[$j]), 3);
 
                 $a_predicates[] = $a_predicate_i;
@@ -195,14 +203,14 @@
         // mencari z-predicate i
         foreach($arrTeladans as $key => $value){
             if($value == "buruk"){
-                $z_predicates[] = round(teladanBuruk(15, 25, $a_predicates[$key]), 3);
+                $z_predicates[] = round(teladanBuruk($a_predicates[$key]), 3);
             } else if($value == "sedang"){
-                $z_predicates[] = round(teladanSedang(20, 25, 30, $a_predicates[$key]), 3);
+                $z_predicates[] = round(teladanSedang($a_predicates[$key]), 3);
             } else if($value == "baik"){
-                $z_predicates[] = round(teladanBaik(25, 35, $a_predicates[$key]), 3);
+                $z_predicates[] = round(teladanBaik($a_predicates[$key]), 3);
             }
         }
-
+        echo "Menemukan z-predicate i keseluruhan: <br>";
         var_dump($z_predicates);
 
         // rumus akhir untuk weight avarage
@@ -221,7 +229,7 @@
             $kategori = [
                 "buruk" => buruk($weightAvarage, 15, 25),
                 "sedang" => sedang($weightAvarage, 20, 25, 30),
-                "baik" => bagus($weightAvarage, 30, 35),
+                "baik" => bagus($weightAvarage, 25, 35),
             ];
             var_dump($kategori);
             $max = array_keys($kategori, max($kategori))[0];

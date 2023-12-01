@@ -87,7 +87,6 @@
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <?= $_SESSION['username']; ?>
                     </button>
                     <div class="dropdown-menu">
-                        <!-- <a class="dropdown-item" href="#"><?= ucfirst($_SESSION['username']); ?></a> -->
                         <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>
                 </div>
