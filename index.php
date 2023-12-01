@@ -44,6 +44,19 @@
         $sort = $data;
     }
 
+    if(isset($_GET["hitungakurasi"])){
+        $nisn = $_GET["hitungakurasi"];
+        $query = "SELECT * FROM siswa WHERE nisn = '$nisn'";
+        $result = mysqli_query($conn, $query);
+        $data = mysqli_fetch_array($result);
+        $akurasi = round(($data["fuzzy_baru"] / $data["sistem_lama"] * 100), 2);
+        if(mysqli_query($conn, "UPDATE siswa SET akurasi = '$akurasi' WHERE nisn = '$nisn'")) {
+            header("Location: index.php");
+        } else{
+            echo mysqli_error($conn);
+        }
+
+    }
 
     if (isset($_POST["search"])) {
         $search = $_POST["search"];
@@ -170,7 +183,7 @@
                                 <td><?= $row['fuzzy_baru'] ?></td>
                                 <td>
                                     <?php if($row['akurasi'] == 0) : ?> 
-                                        <a href="hitungAkurasi.php?nisn=<?= $row['nisn'] ?>" class="btn btn-primary">Hitung Akurasi</a>
+                                        <a href="index.php?hitungakurasi=<?= $row['nisn'] ?>" class="btn btn-primary">Hitung Akurasi</a>
                                     <?php else : ?>
                                         <?= $row['akurasi'] ?>%
                                     <?php endif; ?>
