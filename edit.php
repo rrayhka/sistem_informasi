@@ -24,10 +24,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = mysqli_query($conn, $update_query);
 
     if ($result) {
-        $perubahan = main($intelektual, $sikap, $nisn);
-        if($perubahan == true){
-            echo "Update successful!";
-            header("Location: index.php");
+        $weightAvarage = main($intelektual, $sikap, $nisn);
+        $query1 = mysqli_query($conn, "UPDATE siswa SET fuzzy_baru = '$weightAvarage' WHERE nisn = '$nisn'");
+        if($query1){
+            $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT fuzzy_baru, sistem_lama FROM siswa WHERE nisn = '$nisn'"));
+            $akurasi = round(($data["fuzzy_baru"] / $data["sistem_lama"] * 100), 2);
+            $query2 = "UPDATE siswa SET akurasi = '$akurasi' WHERE nisn = '$nisn'";
+            mysqli_query($conn, $query2);
+            echo "<script>window.location.href='index.php';</script>";
         }
         exit();
     } else {
