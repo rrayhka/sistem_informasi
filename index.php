@@ -159,10 +159,10 @@
                 </thead>
                 <tbody>
                     <?php
-                        $no = 1;
+                        // $no = 1;
                         while ($row = mysqli_fetch_array($sort)) : ?>
                             <tr>
-                                <td><?= $no++ ?></td>
+                                <td><?= $count++ ?></td>
                                 <td><?= $row['nisn'] ?></td>
                                 <td><?= $row['nama'] ?></td>
                                 <td><?= $row['intelektual'] ?></td>

@@ -74,15 +74,6 @@
             "sedang" => $sikap_sedang,
             "baik" => $sikap_baik
         ];
-        echo "<br> menampilkan nilai intelektual : <br>";
-        var_dump($arrIntelektual);
-        echo "<br>";
-        echo "menemukan nilai sikap : <br>";
-        var_dump($arrSikap);
-        echo "<br>";
-
-
-
 
         // mencari aturan-aturan fuzzy
         $nonZeroKeysIntelektual = array_keys(array_filter($arrIntelektual, function($value) {
@@ -100,13 +91,6 @@
             return $value !== 0;
         }));
         $jumlah_sikap = count($nonZeroKeysSikap);
-
-        echo "Menampilkan keys intelektual dan non values intelektual: <br>";
-        var_dump($nonZeroKeysIntelektual, $nonZeroValuesIntelektual);
-        echo "<br>";
-        echo "Menemukan keys sikap dan non values sikap: <br>";
-        var_dump($nonZeroKeysSikap, $nonZeroValuesSikap);
-        echo "<br>";
 
         $arrTeladans = [];
         for($i = 0; $i < 2; $i++){
@@ -145,21 +129,15 @@
                 }
             }
         }
-        echo "Menemukan aturan fuzzy untuk variabel intelektual dan sikap: <br>";
-        var_dump($arrTeladans);
-        
+    
         $a_predicates = [];
         // mencari a-predicate i 
         for($i = 0; $i < $jumlah_intelektual; $i++){
             for($j = 0; $j < $jumlah_sikap; $j++){
                 $a_predicate_i = round(min($nonZeroValuesIntelektual[$i], $nonZeroValuesSikap[$j]), 3);
-
                 $a_predicates[] = $a_predicate_i;
             }
         }
-        
-        echo "Menemukan a-predicate i keseluruhan: <br>";
-        var_dump($a_predicates);
 
         $z_predicates = [];
         // mencari z-predicate i
@@ -172,9 +150,6 @@
                 $z_predicates[] = round(teladanBaik($a_predicates[$key]), 3);
             }
         }
-        echo "Menemukan z-predicate i keseluruhan: <br>";
-        var_dump($z_predicates);
-
 
         // rumus akhir untuk weight avarage
         $pembilang = 0;
@@ -186,19 +161,13 @@
             $index++;
         }
         $weightAvarage = round(($pembilang / $penyebut), 2);
-        echo "Hasil perhitungan: <br>";
-        echo $weightAvarage;
+
         if(isset($weightAvarage)){
             $kategori = [
                 "buruk" => buruk($weightAvarage, 15, 25),
                 "sedang" => sedang($weightAvarage, 20, 25, 30),
                 "baik" => bagus($weightAvarage, 25, 35),
             ];
-            var_dump($kategori);
-            $max = array_keys($kategori, max($kategori))[0];
-            echo "<br>";
-            echo "Hasil klasifikasi: <br>";
-            echo $max;
         }
         return $weightAvarage;
     }
