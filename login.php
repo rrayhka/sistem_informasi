@@ -11,7 +11,6 @@
             $user = mysqli_fetch_assoc($query);
             if(password_verify($password, $user['password'])){
                 $_SESSION['username'] = $username;
-                // $_SESSION['role'] = $username;
                 $_SESSION['login'] = true;
                 header("Location: index.php"); 
                 exit();

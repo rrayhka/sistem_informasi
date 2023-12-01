@@ -1,9 +1,8 @@
 <?php
     include "koneksi.php";
-    if(isset($_SESSION['role'])) {
-        $_SESSION['role'];
-    } else {
-        $_SESSION['role'] = '';
+    if(!isset($_SESSION['login'])){
+        header("Location: login.php");
+        exit();
     }
 
     $batas = 5;
