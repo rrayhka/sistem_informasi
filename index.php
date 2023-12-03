@@ -13,17 +13,18 @@
 
     $data1 = mysqli_query($conn, "SELECT * FROM siswa");
     $jumlah_data = mysqli_num_rows($data1);
+    // var_dump($jumlah_data);
     $total_halaman = ceil($jumlah_data / $batas);
     $count = $halaman_awal + 1;
 
-    $data = mysqli_query($conn, "SELECT * FROM siswa LIMIT $halaman_awal, $batas");
+    $data = mysqli_query($conn, "SELECT * FROM siswa JOIN teladan ON teladan.nisn = siswa.nisn LIMIT $halaman_awal, $batas");
 
-    $sort_int_desc = mysqli_query($conn, "SELECT * FROM siswa ORDER BY intelektual DESC LIMIT $halaman_awal, $batas");
-    $sort_int_asc = mysqli_query($conn, "SELECT * FROM siswa ORDER BY intelektual LIMIT $halaman_awal, $batas");
-    $sort_sikap_desc = mysqli_query($conn, "SELECT * FROM siswa ORDER BY sikap DESC LIMIT $halaman_awal, $batas");
-    $sort_sikap_asc = mysqli_query($conn, "SELECT * FROM siswa ORDER BY sikap LIMIT $halaman_awal, $batas");
-    $sort_akurasi_desc = mysqli_query($conn, "SELECT * FROM siswa ORDER BY akurasi DESC LIMIT $halaman_awal, $batas");
-    $sort_akurasi_asc = mysqli_query($conn, "SELECT * FROM siswa ORDER BY akurasi LIMIT $halaman_awal, $batas");
+    $sort_int_desc = mysqli_query($conn, "SELECT * FROM siswa JOIN teladan ON teladan.nisn = siswa.nisn ORDER BY intelektual DESC LIMIT $halaman_awal, $batas");
+    $sort_int_asc = mysqli_query($conn, "SELECT * FROM siswa JOIN teladan ON teladan.nisn = siswa.nisn ORDER BY intelektual LIMIT $halaman_awal, $batas");
+    $sort_sikap_desc = mysqli_query($conn, "SELECT * FROM siswa JOIN teladan ON teladan.nisn = siswa.nisn ORDER BY sikap DESC LIMIT $halaman_awal, $batas");
+    $sort_sikap_asc = mysqli_query($conn, "SELECT * FROM siswa JOIN teladan ON teladan.nisn = siswa.nisn ORDER BY sikap LIMIT $halaman_awal, $batas");
+    $sort_akurasi_desc = mysqli_query($conn, "SELECT * FROM siswa JOIN teladan ON teladan.nisn = siswa.nisn ORDER BY akurasi DESC LIMIT $halaman_awal, $batas");
+    $sort_akurasi_asc = mysqli_query($conn, "SELECT * FROM siswa JOIN teladan ON teladan.nisn = siswa.nisn ORDER BY akurasi LIMIT $halaman_awal, $batas");
 
     if (isset($_GET['sort'])) {
         $data_sort = $_GET;
@@ -43,6 +44,8 @@
     } else {
         $sort = $data;
     }
+
+    
 
     if(isset($_GET["hitungakurasi"])){
         $nisn = $_GET["hitungakurasi"];
@@ -165,6 +168,9 @@
                             <?php endif; ?>
                         </th>
                         <th>
+                            Kategori
+                        </th>
+                        <th>
                             Action
                         </th>
                     </tr>
@@ -172,7 +178,8 @@
                 <tbody>
                     <?php
                         // $no = 1;
-                        while ($row = mysqli_fetch_array($sort)) : ?>
+                        while ($row = mysqli_fetch_assoc($sort)) : ?>
+                        <!-- <?php var_dump($sort);?> -->
                             <tr>
                                 <td><?= $count++ ?></td>
                                 <td><?= $row['nisn'] ?></td>
@@ -188,6 +195,7 @@
                                         <?= $row['akurasi'] ?>%
                                     <?php endif; ?>
                                 </td>
+                                <td><?= $row['kategori'] ?></td>
                                 <td>
                                     <a href="edit.php?nisn=<?= $row['nisn'] ?>" class="btn btn-warning btn-sm">Edit</a>
                                     <a href="index.php?hapus=<?= $row['nisn'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
@@ -195,10 +203,10 @@
                             </tr>
                     <?php endwhile; ?>
                     <tr>
-                        <td colspan="9">
+                        <td colspan="10">
                         <?php 
                             $count = mysqli_num_rows(mysqli_query($conn, "SELECT akurasi FROM siswa"));
-                            $benar = mysqli_num_rows(mysqli_query($conn, "SELECT akurasi FROM siswa where akurasi > 95"));
+                            $benar = mysqli_num_rows(mysqli_query($conn, "SELECT akurasi FROM siswa where akurasi > 93"));
                             $akurasi = ceil(($benar / $count) * 100);
                         ?>
                         Tingkat Akurasi Fuzzy Logic: <?= $akurasi ?>%
