@@ -13,13 +13,17 @@
 
         if (mysqli_query($conn, $sql)) {
             $perubahan = main($intelektual, $sikap, $nisn);
-            $query = mysqli_query($conn, "UPDATE siswa SET fuzzy_baru = '$perubahan' WHERE nisn = '$nisn'");
+            $query = mysqli_query($conn, "UPDATE siswa SET fuzzy_baru = '$perubahan[0]' WHERE nisn = '$nisn'");
             if($query){
                 $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT fuzzy_baru, sistem_lama FROM siswa WHERE nisn = '$nisn'"));
                 $akurasi = round(($data["fuzzy_baru"] / $data["sistem_lama"] * 100), 2);
                 $query1 = "UPDATE siswa SET akurasi = '$akurasi' WHERE nisn = '$nisn'";
-                mysqli_query($conn, $query1);
-                echo "<script>window.location.href='index.php';</script>";
+                // mysqli_query($conn, $query1);
+                $trueAkurasi = mysqli_query($conn, $query1);
+                if($trueAkurasi){
+                    mysqli_query($conn, "INSERT INTO teladan VALUES ('$nisn', '$perubahan[1]', '$perubahan[0]')");
+                    echo "<script>window.location.href='index.php';</script>";
+                }
             }
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
