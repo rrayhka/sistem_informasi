@@ -25,12 +25,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result) {
         $weightAvarage = main($intelektual, $sikap, $nisn);
-        $query1 = mysqli_query($conn, "UPDATE siswa SET fuzzy_baru = '$weightAvarage' WHERE nisn = '$nisn'");
+        $query1 = mysqli_query($conn, "UPDATE siswa SET fuzzy_baru = '$weightAvarage[0]' WHERE nisn = '$nisn'");
         if($query1){
             $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT fuzzy_baru, sistem_lama FROM siswa WHERE nisn = '$nisn'"));
             $akurasi = round(($data["fuzzy_baru"] / $data["sistem_lama"] * 100), 2);
             $query2 = "UPDATE siswa SET akurasi = '$akurasi' WHERE nisn = '$nisn'";
-            mysqli_query($conn, $query2);
+            $trueAkurasi = mysqli_query($conn, $query2);
+                if($trueAkurasi){
+                    $anyRow = mysqli_query($conn, "SELECT * FROM teladan WHERE nisn = '$nisn'");
+                    if (mysqli_num_rows($anyRow) > 0){
+                     mysqli_query($conn, "UPDATE teladan SET nilai = '$weightAvarage[0]', kategori = '$weightAvarage[1]' WHERE nisn = '$nisn'");
+                    } else{
+                        mysqli_query($conn, "INSERT INTO teladan VALUES ('$nisn', '$weightAvarage[1]', '$weightAvarage[0]')");
+                    }
+                    // echo "<script>window.location.href='index.php';</script>";
+                }
             echo "<script>window.location.href='index.php';</script>";
         }
         exit();
