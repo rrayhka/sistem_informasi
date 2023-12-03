@@ -169,6 +169,10 @@
                 "baik" => bagus($weightAvarage, 25, 35),
             ];
         }
-        return $weightAvarage;
+        // return $weightAvarage;
+        $arrResult = [
+            $weightAvarage, array_keys($kategori, max($kategori))[0]
+        ];
+        return $arrResult;
     }
 ?>
