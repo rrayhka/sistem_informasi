@@ -25,6 +25,8 @@
     $sort_sikap_asc = mysqli_query($conn, "SELECT * FROM siswa JOIN teladan ON teladan.nisn = siswa.nisn ORDER BY sikap LIMIT $halaman_awal, $batas");
     $sort_akurasi_desc = mysqli_query($conn, "SELECT * FROM siswa JOIN teladan ON teladan.nisn = siswa.nisn ORDER BY akurasi DESC LIMIT $halaman_awal, $batas");
     $sort_akurasi_asc = mysqli_query($conn, "SELECT * FROM siswa JOIN teladan ON teladan.nisn = siswa.nisn ORDER BY akurasi LIMIT $halaman_awal, $batas");
+    $sort_fuzzy_asc = mysqli_query($conn, "SELECT * FROM siswa JOIN teladan ON teladan.nisn = siswa.nisn ORDER BY fuzzy_baru LIMIT $halaman_awal, $batas");
+    $sort_fuzzy_desc = mysqli_query($conn, "SELECT * FROM siswa JOIN teladan ON teladan.nisn = siswa.nisn ORDER BY fuzzy_baru DESC LIMIT $halaman_awal, $batas");
 
     if (isset($_GET['sort'])) {
         $data_sort = $_GET;
@@ -40,6 +42,10 @@
             $sort = $sort_akurasi_asc;
         } elseif ($data_sort['sort'] == 'descAcc') {
             $sort = $sort_akurasi_desc;
+        } elseif ($data_sort['sort'] == 'ascFuzzy') {
+            $sort = $sort_fuzzy_asc;
+        } elseif ($data_sort['sort'] == 'descFuzzy') {
+            $sort = $sort_fuzzy_desc;
         }
     } else {
         $sort = $data;
@@ -156,7 +162,16 @@
                             <?php endif; ?>
                         </th>
                         <th>Sistem Lama</th>
-                        <th>Fuzzy Baru</th>
+                        <th>
+                            Fuzzy Baru
+                            <?php if(isset($_GET['sort']) && $_GET['sort'] == 'ascFuzzy') : ?>
+                                <a href="?sort=descFuzzy"><i class="fa-solid fa-arrow-up"></i></a>
+                            <?php elseif(isset($_GET['sort']) && $_GET['sort'] == 'descFuzzy') : ?>
+                                <a href="?sort=ascFuzzy"><i class="fa-solid fa-arrow-down"></i></a>
+                            <?php else : ?>
+                                <a href="?sort=ascFuzzy"><i class="fa-solid fa-arrow-up"></i></a>
+                            <?php endif; ?>
+                        </th>
                         <th>
                             Akurasi
                             <?php if(isset($_GET['sort']) && $_GET['sort'] == 'ascAcc') : ?>
