@@ -152,7 +152,7 @@
                             <?php endif; ?>
                         </th>
                         <th>
-                            Sikap siswa
+                            Sikap
                             <?php if(isset($_GET['sort']) && $_GET['sort'] == 'ascSikap') : ?>
                                 <a href="?sort=descSikap"><i class="fa-solid fa-arrow-up"></i></a>
                             <?php elseif(isset($_GET['sort']) && $_GET['sort'] == 'descSikap') : ?>
@@ -160,6 +160,9 @@
                             <?php else : ?>
                                 <a href="?sort=ascSikap"><i class="fa-solid fa-arrow-up"></i></a>
                             <?php endif; ?>
+                        </th>
+                        <th>
+                            Perilaku
                         </th>
                         <th>Sistem Lama</th>
                         <th>
@@ -172,7 +175,7 @@
                                 <a href="?sort=ascFuzzy"><i class="fa-solid fa-arrow-up"></i></a>
                             <?php endif; ?>
                         </th>
-                        <th>
+                        <!-- <th>
                             Akurasi
                             <?php if(isset($_GET['sort']) && $_GET['sort'] == 'ascAcc') : ?>
                                 <a href="?sort=descAcc"><i class="fa-solid fa-arrow-up"></i></a>
@@ -181,10 +184,10 @@
                             <?php else : ?>
                                 <a href="?sort=ascAcc"><i class="fa-solid fa-arrow-up"></i></a>
                             <?php endif; ?>
-                        </th>
-                        <th>
+                        </th> -->
+                        <!-- <th>
                             Kategori
-                        </th>
+                        </th> -->
                         <th>
                             Action
                         </th>
@@ -201,16 +204,17 @@
                                 <td><?= $row['nama'] ?></td>
                                 <td><?= $row['intelektual'] ?></td>
                                 <td><?= $row['sikap'] ?></td>
+                                <td><?= $row['perilaku'] ?></td>
                                 <td><?= $row['sistem_lama'] ?></td>
                                 <td><?= $row['fuzzy_baru'] ?></td>
-                                <td>
+                                <!-- <td>
                                     <?php if($row['akurasi'] == 0) : ?> 
                                         <a href="index.php?hitungakurasi=<?= $row['nisn'] ?>" class="btn btn-primary">Hitung Akurasi</a>
                                     <?php else : ?>
                                         <?= $row['akurasi'] ?>%
                                     <?php endif; ?>
-                                </td>
-                                <td><?= $row['kategori'] ?></td>
+                                </td> -->
+                                <!-- <td><?= $row['kategori'] ?></td> -->
                                 <td>
                                     <a href="edit.php?nisn=<?= $row['nisn'] ?>" class="btn btn-warning btn-sm">Edit</a>
                                     <a href="index.php?hapus=<?= $row['nisn'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>

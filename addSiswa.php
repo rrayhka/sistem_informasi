@@ -7,12 +7,13 @@
         $nama = $_POST["nama"];
         $intelektual = $_POST["intelektual"];
         $sikap = $_POST["sikap"];
+        $perilaku = $_POST["perilaku"];
         $sistem_lama = $_POST["sistem_lama"];
 
-        $sql = "INSERT INTO siswa (nisn, nama, intelektual, sikap, sistem_lama) VALUES ('$nisn', '$nama', '$intelektual', '$sikap', '$sistem_lama')";
+        $sql = "INSERT INTO siswa (nisn, nama, intelektual, sikap, perilaku, sistem_lama) VALUES ('$nisn', '$nama', '$intelektual', '$sikap', '$perilaku', '$sistem_lama')";
 
         if (mysqli_query($conn, $sql)) {
-            $perubahan = main($intelektual, $sikap, $nisn);
+            $perubahan = main($intelektual, $sikap, $perilaku, $nisn);
             $query = mysqli_query($conn, "UPDATE siswa SET fuzzy_baru = '$perubahan[0]' WHERE nisn = '$nisn'");
             if($query){
                 $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT fuzzy_baru, sistem_lama FROM siswa WHERE nisn = '$nisn'"));
@@ -65,6 +66,9 @@
                 <label for="sikap">Sikap Siswa:</label>
                 <input type="text" class="form-control" id="sikap" placeholder="Enter Sikap Siswa" name="sikap" required>
             </div>
+            <div class="form-group">
+                <label for="perilaku">Perilaku:</label>
+                <input type="text" class="form-control" id="perilaku" placeholder="Enter Perilaku" name="perilaku" required>
             <div class="form-group">
                 <label for="sistem_lama">Sistem Lama:</label>
                 <input type="text" class="form-control" id="sistem_lama" placeholder="Enter Sistem Lama" name="sistem_lama" required>

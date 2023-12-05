@@ -15,16 +15,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nisn = $_POST['nisn'];
     $nama = $_POST['nama'];
     $intelektual = $_POST['intelektual'];
-    $sistem_lama = $_POST['sistem_lama'];
     $sikap = $_POST['sikap'];
+    $perilaku = $_POST['perilaku'];
+    $sistem_lama = $_POST['sistem_lama'];
     $user = mysqli_query($conn, "SELECT * FROM siswa WHERE nisn = '$nisn'");
     $data = mysqli_fetch_assoc($user);
 
-    $update_query = "UPDATE siswa SET nama='$nama', intelektual='$intelektual', sikap='$sikap', sistem_lama = '$sistem_lama' WHERE nisn='$nisn'";
+    $update_query = "UPDATE siswa SET nama='$nama', intelektual='$intelektual', sikap='$sikap', perilaku = '$perilaku', sistem_lama = '$sistem_lama' WHERE nisn='$nisn'";
     $result = mysqli_query($conn, $update_query);
 
     if ($result) {
-        $weightAvarage = main($intelektual, $sikap, $nisn);
+        $weightAvarage = main($intelektual, $sikap, $perilaku, $nisn );
         $query1 = mysqli_query($conn, "UPDATE siswa SET fuzzy_baru = '$weightAvarage[0]' WHERE nisn = '$nisn'");
         if($query1){
             $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT fuzzy_baru, sistem_lama FROM siswa WHERE nisn = '$nisn'"));
@@ -85,6 +86,10 @@ if (isset($_GET['nisn'])) {
                     <div class="mb-3">
                         <label for="sikap" class="form-label">Sikap:</label>
                         <input type="text" class="form-control" id="sikap" name="sikap" value="<?= $student['sikap'] ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="perilaku" class="form-label">Perilaku</label>
+                        <input type="text" class="form-control" id="perilaku" name="perilaku" value="<?= $student['perilaku'] ?>">
                     </div>
                     <div class="mb-3">
                         <label for="sistem_lama" class="form-label">Sistem Lama</label>
