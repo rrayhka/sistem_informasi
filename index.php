@@ -112,6 +112,9 @@
                     </div>
                 </div>
             </div>
+            <div class="navbar-nav ml-auto">
+                <button type="button" class="btn btn-primary"><a href="fuzzy.php" class="text-light">Hitung Manual</a></button>
+            </div>
         </div>
     </nav>
 

@@ -31,7 +31,7 @@
         }
     }
 
-    function main($intelektual, $sikap, $perilaku, $nisn){
+    function main($intelektual, $sikap, $perilaku){
         $intelektual = $_POST['intelektual'];
         $sikap = $_POST['sikap'];
         $perilaku = $_POST['perilaku'];

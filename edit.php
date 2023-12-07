@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = mysqli_query($conn, $update_query);
 
     if ($result) {
-        $weightAvarage = main($intelektual, $sikap, $perilaku, $nisn );
+        $weightAvarage = main($intelektual, $sikap, $perilaku);
         $query1 = mysqli_query($conn, "UPDATE siswa SET fuzzy_baru = '$weightAvarage[0]' WHERE nisn = '$nisn'");
         if($query1){
             $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT fuzzy_baru, sistem_lama FROM siswa WHERE nisn = '$nisn'"));

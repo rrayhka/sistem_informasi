@@ -13,7 +13,7 @@
         $sql = "INSERT INTO siswa (nisn, nama, intelektual, sikap, perilaku, sistem_lama) VALUES ('$nisn', '$nama', '$intelektual', '$sikap', '$perilaku', '$sistem_lama')";
 
         if (mysqli_query($conn, $sql)) {
-            $perubahan = main($intelektual, $sikap, $perilaku, $nisn);
+            $perubahan = main($intelektual, $sikap, $perilaku);
             $query = mysqli_query($conn, "UPDATE siswa SET fuzzy_baru = '$perubahan[0]' WHERE nisn = '$nisn'");
             if($query){
                 $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT fuzzy_baru, sistem_lama FROM siswa WHERE nisn = '$nisn'"));
