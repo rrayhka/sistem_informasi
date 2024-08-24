@@ -18,15 +18,15 @@
                         <form method="post">
                             <div class="form-group">
                                 <label for="username">Intelektual</label>
-                                <input type="text" class="form-control" name="intelektual" id="intelektual" required>
+                                <input type="text" class="form-control" name="intelektual" id="intelektual" required placeholder="domain [15-45]">
                             </div>
                             <div class="form-group">
                                 <label for="sikap">Sikap Siswa</label>
-                                <input type="text" class="form-control" name="sikap" id="sikap" required>
+                                <input type="text" class="form-control" name="sikap" id="sikap" required placeholder="domain [5-11]">
                             </div>
                             <div class="form-group">
                                 <label for="perilaku">Perilaku</label>
-                                <input type="text" class="form-control" name="perilaku" id="perilaku">
+                                <input type="text" class="form-control" name="perilaku" id="perilaku" required placeholder="domain [4-8]"> 
                             </div>
                             <button type="submit" name="submit" class="btn btn-primary">Hitung</button>
                         </form>

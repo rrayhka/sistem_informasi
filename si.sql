@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2023 at 09:27 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Waktu pembuatan: 11 Des 2023 pada 13.10
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `siswa`
+-- Struktur dari tabel `siswa`
 --
 
 CREATE TABLE `siswa` (
@@ -39,7 +39,7 @@ CREATE TABLE `siswa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `siswa`
+-- Dumping data untuk tabel `siswa`
 --
 
 INSERT INTO `siswa` (`nisn`, `nama`, `intelektual`, `sikap`, `perilaku`, `sistem_lama`, `fuzzy_baru`, `akurasi`) VALUES
@@ -55,7 +55,7 @@ INSERT INTO `siswa` (`nisn`, `nama`, `intelektual`, `sikap`, `perilaku`, `sistem
 -- --------------------------------------------------------
 
 --
--- Table structure for table `teladan`
+-- Struktur dari tabel `teladan`
 --
 
 CREATE TABLE `teladan` (
@@ -65,7 +65,7 @@ CREATE TABLE `teladan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `teladan`
+-- Dumping data untuk tabel `teladan`
 --
 
 INSERT INTO `teladan` (`nisn`, `kategori`, `nilai`) VALUES
@@ -81,7 +81,7 @@ INSERT INTO `teladan` (`nisn`, `kategori`, `nilai`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
@@ -91,7 +91,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`username`, `email`, `password`) VALUES
@@ -103,29 +103,29 @@ INSERT INTO `user` (`username`, `email`, `password`) VALUES
 --
 
 --
--- Indexes for table `siswa`
+-- Indeks untuk tabel `siswa`
 --
 ALTER TABLE `siswa`
   ADD PRIMARY KEY (`nisn`);
 
 --
--- Indexes for table `teladan`
+-- Indeks untuk tabel `teladan`
 --
 ALTER TABLE `teladan`
   ADD KEY `FK_teladan_siswa` (`nisn`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`username`);
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `teladan`
+-- Ketidakleluasaan untuk tabel `teladan`
 --
 ALTER TABLE `teladan`
   ADD CONSTRAINT `FK_teladan_siswa` FOREIGN KEY (`nisn`) REFERENCES `siswa` (`nisn`) ON DELETE CASCADE ON UPDATE CASCADE;
